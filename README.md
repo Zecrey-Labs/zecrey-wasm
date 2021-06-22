@@ -63,3 +63,24 @@ $ live-server static
 | l2addresses | string                                                       | user addresses(including the sender), original type is []string, use JSON.stringify() |
 | segmentJSON | string:<br />{<br />enc_val: string<br />pk:string<br />b_delta: int<br />sk: string} | enc_val: encryption value, 64B<br />pk: public key, 32B <br />b_delta: transfer amount, if sk is null, this value should bigger than 0, otherwise, smaller than 0<br />sk: private key, 251bits, type is BigInt, base 10 |
 
+### Error Types
+
+| Value | Comment                          |
+| ----- | -------------------------------- |
+| -1    | Success                          |
+| -1001 | ErrUnmarshal                     |
+| -1002 | ErrInvalidWithdrawParams         |
+| -1003 | ErrParseEnc                      |
+| -1004 | ErrParsePoint                    |
+| -1005 | ErrParseBigInt                   |
+| -1006 | ErrInvalidWithdrawRelationParams |
+| -1007 | ErrProveWithdraw                 |
+| -1008 | ErrMarshalTx                     |
+| -1009 | ErrInvalidTransferParams         |
+| -1010 | ErrInvalidTransferRelationParams |
+| -1011 | ErrProveTransfer                 |
+| -1012 | ErrL2SkParams                    |
+| -1013 | ErrInvalidEncParams              |
+| -1014 | ErrElGamalEnc                    |
+| -1015 | ErrInvalidDecParams              |
+| -1016 | ErrElGamalDec                    |
