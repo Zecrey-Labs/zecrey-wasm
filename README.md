@@ -13,9 +13,9 @@ $ live-server static
 > elgamalDec('1401dbd7badfacbd1a1223fd6ce342f0c18f2b6562bd69654a6328c61dfb21a9e731bc07581c07a9c1b4aad3629941ef66c883584cbd60b8b87d35663944a485','808278622805225047266937796693189036310912126801644379966799703288088641332',0,100)
 # it will output 8
 > proveWithdraw(1,'sher','0xE9b15a2D396B349ABF60e53ec66Bcf9af262D449','{"enc_val":"1401dbd7badfacbd1a1223fd6ce342f0c18f2b6562bd69654a6328c61dfb21a9e731bc07581c07a9c1b4aad3629941ef66c883584cbd60b8b87d35663944a485", "pk":"6ebe89760a2d5a1759b96c87e2e013ebfd1e659ccd8aadfb21d9cd16d9bab80e", "b_star":-2,"sk":"808278622805225047266937796693189036310912126801644379966799703288088641332"}')
-# it will output withdraw proof and cost 600ms, native version only cost 20ms
+# it will output withdraw proof and cost 600ms, native version only cost 14ms
 > proveTransfer(1,'["sher","lin","lzp"]','[{"enc_val":"595b82141788f8f1a96a560ad6140f659682d728b77c8ee70ccf96c5be03960b0899e37cba03fad3c052bccf746926a4fab3352a118965c797d67e04993b50ae", "pk":"731f4e1e9c839688c6baac16601b558022c3b27a1f5eee6b633439927a979fa7", "b_delta":-4,"sk":"367676241680898931196669992568589436958624636382082109130432125664493906855"},{"enc_val":"d03f7eb303260882ea703f0c65043c4b2baacddba403db93fba6c96341ba8b87f824e60aa144b91d8e71aa5547e684317a4ca13c407b35e9732afb373259998d", "pk":"2f73fcea812db185cd7447d80fcd81d82cc93b45a4c3533afb0f59d0186a15b0", "b_delta":1},{"enc_val":"b83921e4d8cee3e462b13b8051f942a4ccf7eefb540a5ad953d141bef4970104f98640ad11d42a34a929259705835d2348d8e1b379f27a2b1ab60f18d781109d", "pk":"ad2a965336945fa6bbbd88dc3c8f4c2d35da3015d72673b570d7d524e0c3069e", "b_delta":3}]')
-# it will output transfer proof and cost 2.3s, native version only cost 70ms
+# it will output transfer proof and cost 2s, native version only cost 40ms
 > getL2PublicKey('80827862280522504726693779669318903631091212680164437996679970328808864133111112')
 # it will output "a8202b892a073d7f3d6e24bab97a85811651c3b12abc6a7a864103515844dc25"
 ```
@@ -65,22 +65,22 @@ $ live-server static
 
 ### Error Types
 
-| Value | Comment                          |
-| ----- | -------------------------------- |
-| -1    | Success                          |
-| -1001 | ErrUnmarshal                     |
-| -1002 | ErrInvalidWithdrawParams         |
-| -1003 | ErrParseEnc                      |
-| -1004 | ErrParsePoint                    |
-| -1005 | ErrParseBigInt                   |
-| -1006 | ErrInvalidWithdrawRelationParams |
-| -1007 | ErrProveWithdraw                 |
-| -1008 | ErrMarshalTx                     |
-| -1009 | ErrInvalidTransferParams         |
-| -1010 | ErrInvalidTransferRelationParams |
-| -1011 | ErrProveTransfer                 |
-| -1012 | ErrL2SkParams                    |
-| -1013 | ErrInvalidEncParams              |
-| -1014 | ErrElGamalEnc                    |
-| -1015 | ErrInvalidDecParams              |
-| -1016 | ErrElGamalDec                    |
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| Success                          | success                          |
+| ErrUnmarshal                     | ErrUnmarshal                     |
+| ErrInvalidWithdrawParams         | ErrInvalidWithdrawParams         |
+| ErrParseEnc                      | ErrParseEnc                      |
+| ErrParsePoint                    | ErrParsePoint                    |
+| ErrParseBigInt                   | ErrParseBigInt                   |
+| ErrInvalidWithdrawRelationParams | ErrInvalidWithdrawRelationParams |
+| ErrProveWithdraw                 | ErrProveWithdraw                 |
+| ErrMarshalTx                     | ErrMarshalTx                     |
+| ErrInvalidTransferParams         | ErrInvalidTransferParams         |
+| ErrInvalidTransferRelationParams | ErrInvalidTransferRelationParams |
+| ErrProveTransfer                 | ErrProveTransfer                 |
+| ErrL2SkParams                    | ErrL2SkParams                    |
+| ErrInvalidEncParams              | ErrInvalidEncParams              |
+| ErrElGamalEnc                    | ErrElGamalEnc                    |
+| ErrInvalidDecParams              | ErrInvalidDecParams              |
+| ErrElGamalDec                    | ErrElGamalDec                    |
