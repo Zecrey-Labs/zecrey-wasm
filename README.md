@@ -9,6 +9,7 @@
 ```sh
 $ live-server static
 
+# if you want to see the running time, add console.time('a'); before the command and console.timeEnd('a'); after the command
 # Call F12 in chrome
 > elgamalDec('1401dbd7badfacbd1a1223fd6ce342f0c18f2b6562bd69654a6328c61dfb21a9e731bc07581c07a9c1b4aad3629941ef66c883584cbd60b8b87d35663944a485','808278622805225047266937796693189036310912126801644379966799703288088641332',0,100)
 # it will output 8
@@ -18,6 +19,8 @@ $ live-server static
 # it will output transfer proof and cost 2s, native version only cost 40ms
 > getL2PublicKey('80827862280522504726693779669318903631091212680164437996679970328808864133111112')
 # it will output "a8202b892a073d7f3d6e24bab97a85811651c3b12abc6a7a864103515844dc25"
+> proveSwap(1,2,'sher','{"enc_val":"616efbce12116924fbe36a8466a81a007851de2f929cb435a12596e3d3a0f4096d311fe0d32bd95bf5ef650c40c0a8c508ac8bb2793984b164d3084a22613f2c","pk":"594aa5860ed23e9f51e08ce78ca954169a124f269fe61c6a1d6e6f84ee6506ad","b_star_from":1,"b_star_to":8,"sk":"524798300537746135927653031480839525545644566062624996221568322767788990425"}')
+# it will cost nearly 700ms
 ```
 
 
@@ -63,6 +66,15 @@ $ live-server static
 | l2addresses | string                                                       | user addresses(including the sender), original type is []string, use JSON.stringify() |
 | segmentJSON | string:<br />{<br />enc_val: string<br />pk:string<br />b_delta: int<br />sk: string} | enc_val: encryption value, 64B<br />pk: public key, 32B <br />b_delta: transfer amount, if sk is null, this value should bigger than 0, otherwise, smaller than 0<br />sk: private key, 251bits, type is BigInt, base 10 |
 
+### proveSwap
+
+| Name        | Type                                                         | Comment                                                      |
+| ----------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| fromTokenId | int                                                          | swap from token id                                           |
+| toTokenId   | int                                                          | swap to token id                                             |
+| l2address   | string                                                       | sender address                                               |
+| segmentJSON | string:<br />{<br />enc_val: string<br />pk:string<br />b_star_from: int<br />b_star_to:int<br />sk: string} | enc_val: encryption value, 64B<br />pk: public key, 32B <br />b_star_from: swap from amount<br />b_star_to: swap to amount<br />sk: private key, 251bits, type is BigInt, base 10 |
+
 ### Error Types
 
 | Name                             | Value                            |
@@ -84,3 +96,5 @@ $ live-server static
 | ErrElGamalEnc                    | ErrElGamalEnc                    |
 | ErrInvalidDecParams              | ErrInvalidDecParams              |
 | ErrElGamalDec                    | ErrElGamalDec                    |
+| ErrInvalidSwapParams             | ErrInvalidSwapParams             |
+| ErrInvalidSwapRelationParams     | ErrInvalidSwapRelationParams     |
