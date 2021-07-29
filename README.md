@@ -21,6 +21,9 @@ $ live-server static
 # it will output "qCAriSoHPX89biS6uXqFgRZRw7EqvGp6hkEDUVhE3CU="
 > proveSwap(1,2,1,2,1,1,1,'{"enc_balance":"8Q1NcIhLUy/g46edGtzjtgRdsKUyMsWFxA7j41le/Zf0ai14YrdtPkO87TbI/YYuZv5xoWyBvblpNSbL3XCgkw==","balance":8,"pk":"F6YftwB+pLeIhgl5Vm77JIUe2b+Cg+kZUiu0qBl7ooU=","b_star_from":1,"b_star_to":8,"sk":"1017724826210560602038762767050968580741611470742637863248271997587646338143","receiver_enc_balance":"P3XYxDwnPMUPjmoiddxFOuX8ZJQrdyb2toHwaLK1EZFY9s5mW1B3dtzZR/fY4iw2ZYy/YkjOgMF7rq2ZSQ4+lQ==","receiver_pk":"E7uhoHsRk0RH3T9+I0BEP4N3mmccQoTB5gjoI13goAI="}')
 # it will cost nearly 700ms
+
+> proveL1PrivacyTransfer('0xb1c297bBb2DC33F3c68920F02e88d2746b2F456d',3,10,'0x001',1,0,2,'[3,1,5]','[{"enc_balance":"e/Ic2q8QlxnJ626mTjKBfHgfUr39ekiSJa93F4OXnq6qmCA1gkLK/ZqUYLjB67dkl6XU3+tAvx0DgHnH0lIfrw==", "balance":100,"pk":"VKASf3Li/fLPdUlUYvOHJxVO4GBMEd8S7tVczCWNIwA=", "b_delta":-12,"sk":"307595295600029199081694065758883148461167161923180057764109328721502007902"},{"enc_balance":"Wo3uv2rpgHNMrhemH/MlM72i/qOQt92PaRdo2PARvylGK7yGvwpOgpkc+qcIK0QfIBIBeFeOUHak1QDOooNAlg==", "pk":"W+xuOsgTYAVn0xPGShbKM63qcGZPflB4EdgqO2bJ9Co=", "b_delta":10},{"enc_balance":"YwoTmOIccu8Ioug7tOu7xF+O9kUT6q5GC4Jt80XWf64CzaBIKm81EG+gU2tI2MTqdx3MNeulFrZfDPbt64pVKQ==", "pk":"uri0rrhcxsIcoEdVlIQzt06IhKwE61Q7q0gQEgr0mSg=", "b_delta":0}]')
+
 ```
 
 
@@ -81,6 +84,20 @@ $ live-server static
 | fee          | int                                                          | transaction fee                                              |
 | accountIndex | int                                                          | sender account index                                         |
 | segmentJSON  | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_star_from: int<br />b_star_to:int<br />sk: string} | enc_balance: encryption value, 64B<br />balance: balance releated to enc_balance<br />pk: public key, 32B <br />b_star_from: swap from amount<br />b_star_to: swap to amount<br />sk: private key, 251bits, type is BigInt, base 10 |
+
+### proveL1PrivacyTransfer
+
+| Name             | Type                                                         | Comment                                                      |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| withdrawTo       | string                                                       | withdraw to which layer 1 address                            |
+| accountIndex     | int                                                          | account index for the sender                                 |
+| depositAmount    | int                                                          | deposit amount(Zecrey Unit)                                  |
+| depositTxHash    | string                                                       | deposit tx hash                                              |
+| chainId          | int                                                          | chain id                                                     |
+| assetId          | int                                                          | asset id                                                     |
+| fee              | int                                                          | privacy fee(Zecrey Unit)                                     |
+| accountsIndexStr | string                                                       | user accounts indexes(including the sender), original type is []int, use JSON.stringify() |
+| segmentJSON      | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_delta: int<br />sk: string} | enc_balance: encryption value, 64B<br />*balance: balance related to enc_balance, only pass when sk != null<br />pk: public key, 32B <br />b_delta: transfer amount, if sk is null, this value should bigger than 0, otherwise, smaller than 0<br />sk: private key, 251bits, type is BigInt, base 10 |
 
 ### Error Types
 
