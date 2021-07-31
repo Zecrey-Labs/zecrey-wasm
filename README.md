@@ -75,15 +75,16 @@ $ live-server static
 
 ### proveSwap
 
-| Name         | Type                                                         | Comment                                                      |
-| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| chainIdFrom  | int                                                          | swap from which chain                                        |
-| chainIdTo    | int                                                          | swap to which chain                                          |
-| fromAssetId  | int                                                          | swap from token id                                           |
-| toAssetId    | int                                                          | swap to token id                                             |
-| fee          | int                                                          | transaction fee                                              |
-| accountIndex | int                                                          | sender account index                                         |
-| segmentJSON  | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_star_from: int<br />b_star_to:int<br />sk: string<br />receiver_enc_balance: string<br />receiver_pk: string} | enc_balance: encryption value, 64B<br />balance: balance releated to enc_balance<br />pk: public key, 32B <br />b_star_from: swap from amount<br />b_star_to: swap to amount<br />sk: private key, 251bits, type is BigInt, base 10<br />receiver_enc_balance: receiver balance enc<br />receiver_pk: receiver public key |
+| Name             | Type                                                         | Comment                                                      |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| chainIdFrom      | int                                                          | swap from which chain                                        |
+| chainIdTo        | int                                                          | swap to which chain                                          |
+| fromAssetId      | int                                                          | swap from token id                                           |
+| toAssetId        | int                                                          | swap to token id                                             |
+| fee              | int                                                          | transaction fee                                              |
+| accountIndexFrom | int                                                          | sender account index                                         |
+| accountIndexTo   | int                                                          | receiver account index                                       |
+| segmentJSON      | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_star_from: int<br />b_star_to:int<br />sk: string<br />receiver_enc_balance: string<br />receiver_pk: string} | enc_balance: encryption value, 64B<br />balance: balance releated to enc_balance<br />pk: public key, 32B <br />b_star_from: swap from amount<br />b_star_to: swap to amount<br />sk: private key, 251bits, type is BigInt, base 10<br />receiver_enc_balance: receiver balance enc<br />receiver_pk: receiver public key |
 
 ### proveL1PrivacyTransfer
 
