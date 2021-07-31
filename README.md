@@ -83,7 +83,7 @@ $ live-server static
 | toAssetId    | int                                                          | swap to token id                                             |
 | fee          | int                                                          | transaction fee                                              |
 | accountIndex | int                                                          | sender account index                                         |
-| segmentJSON  | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_star_from: int<br />b_star_to:int<br />sk: string} | enc_balance: encryption value, 64B<br />balance: balance releated to enc_balance<br />pk: public key, 32B <br />b_star_from: swap from amount<br />b_star_to: swap to amount<br />sk: private key, 251bits, type is BigInt, base 10 |
+| segmentJSON  | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_star_from: int<br />b_star_to:int<br />sk: string<br />receiver_enc_balance: string<br />receiver_pk: string} | enc_balance: encryption value, 64B<br />balance: balance releated to enc_balance<br />pk: public key, 32B <br />b_star_from: swap from amount<br />b_star_to: swap to amount<br />sk: private key, 251bits, type is BigInt, base 10<br />receiver_enc_balance: receiver balance enc<br />receiver_pk: receiver public key |
 
 ### proveL1PrivacyTransfer
 
@@ -97,7 +97,7 @@ $ live-server static
 | assetId          | int                                                          | asset id                                                     |
 | fee              | int                                                          | privacy fee(Zecrey Unit)                                     |
 | accountsIndexStr | string                                                       | user accounts indexes(including the sender), original type is []int, use JSON.stringify() |
-| segmentJSON      | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_delta: int<br />sk: string} | enc_balance: encryption value, 64B<br />*balance: balance related to enc_balance, only pass when sk != null<br />pk: public key, 32B <br />b_delta: transfer amount, if sk is null, this value should bigger than 0, otherwise, smaller than 0<br />sk: private key, 251bits, type is BigInt, base 10 |
+| segmentJSON      | string:<br />{<br />enc_balance: string<br />balance: int<br />pk:string<br />b_delta: int<br />sk: string} | enc_balance: encryption value, 64B<br />*balance: balance related to enc_balance, only pass when sk != null<br />pk: public key, 32B <br />b_delta: transfer amount, if sk is null, this value should bigger than 0, otherwise, smaller than 0<br />sk: private key, 251bits, type is BigInt, base 10<br /> |
 
 ### Error Types
 
