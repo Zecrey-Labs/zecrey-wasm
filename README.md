@@ -14,7 +14,7 @@ $ live-server static
 > elgamalDec('PSjJUWon0WV1gQA/SxovPRS0XCyVdGpq0O+Ttjh+ZBe38+GdDtFhVNMrDZQKtfaZ5e1oPkgO2LRoxTMGp1pPoQ==','959120971630916186538306178761323785168020249928470126158942387495545940088',0,20000)
 
 > elgamalRawDec('PSjJUWon0WV1gQA/SxovPRS0XCyVdGpq0O+Ttjh+ZBe38+GdDtFhVNMrDZQKtfaZ5e1oPkgO2LRoxTMGp1pPoQ==','959120971630916186538306178761323785168020249928470126158942387495545940088')
-# it will output 10000
+# it will output "mbZvQoX6SeRGKk/KtzmseBv/mUDHGFHKeEzk0e6eMyg="
 > proveWithdraw(1, 1,1,1,'0x99AC8881834797ebC32f185ee27c2e96842e1a47','{"enc_balance":"ehn2xKgpIHu5SMwlMxcuuvZSc0hcdTLz5JjFn/QMEq8opyxNzUPvAz64jPYn3WIhivJVuVs5l3oalK4yRYRvDA==", "pk":"Jt9amF32qNqu1AqkImUIiu+jqPVtlgzJSAMONS8LbRU=", "b_star":2,"balance":8,"sk":"291506282145866059790720920090307253831111469240911238719036914525276664321"}')
 # it will output withdraw proof and cost 700ms, native version only cost 10ms
 > proveTransfer(1,1,'[1,2,3]','[{"enc_balance":"YFreXNLjjupfrN/6nBExMjpj9Mj4tYIWP14QN5O86R6skYFlwtMgVpnfJwwgHgOxrxHiz2qLV3pXN8JVr7WEiQ==", "balance":8,"pk":"IeC1BydfXzJ7Ve+AbeahpOSyUX8oi3+VyR6zJT8fHw0=", "b_delta":-5,"sk":"499949885387816668586237702202862308748107211143318739581312585461274422492"},{"enc_balance":"oszpzl4/u0907OG3rnisQnnpJ3jBo/TTy7rS5Dc3lI7tK35ImqWlFErYeAmqZc3S2pnDei0uzMCyuXNeulcYlQ==", "pk":"SCmI6f5AwYXR6MkNH9xlzS9LRjmbYx2iMtqnS56jAC8=", "b_delta":1},{"enc_balance":"hjzILvNsNV5zBkEb+szn1N6O4SHlxKxl5VpA8nf0RyrRirf/lcTJrWFVYe5+7FjZnUakPtN0lLnQN0zJyi9oGA==", "pk":"6zOn8d30IZoV4Yc9m4j/BMq1qvQOuhIxICjVrq4t5gY=", "b_delta":3}]')
