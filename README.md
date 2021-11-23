@@ -150,10 +150,11 @@ type UnlockSegmentFormat struct {
 
 ### proveTransfer
 
-| Name    | Type | Comment             |
-| ------- | ---- | ------------------- |
-| assetId | int  | unique asset id     |
-| gasFee  | int  | transaction gas fee |
+| Name    | Type   | Comment             |
+| ------- | ------ | ------------------- |
+| assetId | int    | unique asset id     |
+| gasFee  | int    | transaction gas fee |
+| memo    | string | memo                |
 
 > JSON format string
 
