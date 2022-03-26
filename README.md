@@ -47,6 +47,16 @@ proveTransfer(1,1,'memo','[{"account_index":3,"balance_enc":"culWuzSA5GRNhmcW6PL
 // add liquidity fee id is the same with asset B id, cost 2314ms
 > proveAddLiquidity('{"pair_index": 1, "account_index": 3, "c_u_a": "2gB49VKh7a2f6h3JGV0E/RDOQSIAMCzmBYLRezjkRIKuCep4r8/d3QlumgkRif6TCOmiVTrOWdsVwuy/CgKckA==", "c_u_b": "Wb/lsXjdM7z3iMy8BIMbVMWkWnpZYjaE51pNib4aBQUEbGVxm4YOHlVDS2w/AOnPwK2ACXS0aFPibAr98b2fiw==", "pk_pool": "c+wRqnuOTmf0NPaODB4X2509YbcWKwnmS3FAsWAl8RI=", "pk_u":"3+UC4GQtoTeOlbrdCyXsOZ2RTRlrrBJ/YqUJrHaOcAM=", "asset_a_id":1, "asset_b_id": 2, "b_u_a": 8, "b_u_b":4,"b_a_delta": 1, "b_b_delta": 1,"sk_u":"1118266912864228166266853607897072317618597295146579649989703085257983434856", "c_fee": "Wb/lsXjdM7z3iMy8BIMbVMWkWnpZYjaE51pNib4aBQUEbGVxm4YOHlVDS2w/AOnPwK2ACXS0aFPibAr98b2fiw==", "b_fee":4, "gas_fee_asset_id": 2, "gas_fee": 1}')
 
+> proveMintNft('{"account_index":0,"pk":"4uA+cBJAeV3Fw6VcZRi6GxSHRm06tgWZ7r9gkiDzNpc=","sk":"2073942362777190894649839587911172153339757863207512928340352386750181764118","nft_name":"test","nft_url":"https://test.com/a.jpg","nft_collection_id":1,"nft_introduction":"test nft","nft_attributes":"1:2","receiver_account_index":0,"c_fee":"/IfGU/5r2Jdww4Q/Z28eGO2bQsJBTvyzmy9Qz1v6mJDErMQ927/XInUDC/45+7zwXRujNDsjPK0zAaT0bVOiDg==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
+
+> proveTransferNft('{"account_index":0,"pk":"4uA+cBJAeV3Fw6VcZRi6GxSHRm06tgWZ7r9gkiDzNpc=","sk":"2073942362777190894649839587911172153339757863207512928340352386750181764118","nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","receiver_account_index":1,"c_fee":"/IfGU/5r2Jdww4Q/Z28eGO2bQsJBTvyzmy9Qz1v6mJDErMQ927/XInUDC/45+7zwXRujNDsjPK0zAaT0bVOiDg==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
+
+> proveSetNftPrice('{"account_index":0,"pk":"4uA+cBJAeV3Fw6VcZRi6GxSHRm06tgWZ7r9gkiDzNpc=","sk":"2073942362777190894649839587911172153339757863207512928340352386750181764118","nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","asset_id":1,"asset_amount":10,"c_fee":"/IfGU/5r2Jdww4Q/Z28eGO2bQsJBTvyzmy9Qz1v6mJDErMQ927/XInUDC/45+7zwXRujNDsjPK0zAaT0bVOiDg==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
+
+> proveBuyNft('{"account_index":0,"c":"lQn5GcmB0DLr2VvC8ttJK9pkjZESu0aUfBeiICge6Ae5GDbfLc8QwHpFeIBdvzbv2dMGIlVF7lkx05720w0psA==","pk":"RrJYKK4xRJBkyuk9sFtTjmtBer7lhEwElxIRvDjFrKs=","b":8,"sk":"475102078831139334017978367390533535565844015034988513555777843897424109597","owner_account_index":4,"nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","asset_id":2,"asset_amount":5,"c_fee":"lQn5GcmB0DLr2VvC8ttJK9pkjZESu0aUfBeiICge6Ac2UXTOz5146FGzJNLyFa4fhebya39lHPNvAXCS+Shpjw==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
+
+> proveWithdrawNft('{"account_index":0,"pk":"RrJYKK4xRJBkyuk9sFtTjmtBer7lhEwElxIRvDjFrKs=","sk":"475102078831139334017978367390533535565844015034988513555777843897424109597","nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","receiver_addr":"0xd5Aa3B56a2E2139DB315CdFE3b34149c8ed09171","chain_id":0,"c_fee":"lQn5GcmB0DLr2VvC8ttJK9pkjZESu0aUfBeiICge6Ac2UXTOz5146FGzJNLyFa4fhebya39lHPNvAXCS+Shpjw==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
+
 ```
 
 
@@ -266,6 +276,143 @@ type RemoveLiquiditySegmentFormat struct {
 	B_fee         int64  `json:"b_fee"`
 	GasFeeAssetId int    `json:"gas_fee_asset_id"`
 	GasFee        int64  `json:"gas_fee"`
+}
+```
+
+### proveMintNft
+
+```go
+type MintNftSegmentFormat struct {
+    // account index
+    AccountIndex int `json:"account_index"`
+    // public key
+    Pk string `json:"pk"`
+    // private key
+    Sk string `json:"sk"`
+    // common input part
+    NftName              string `json:"nft_name"`
+    NftUrl               string `json:"nft_url"`
+    NftCollectionId      uint32 `json:"nft_collection_id"`
+    NftIntroduction      string `json:"nft_introduction"`
+    NftAttributes        string `json:"nft_attributes"`
+    ReceiverAccountIndex int    `json:"receiver_account_index"`
+    // fee part
+    // encryption of balance of the gas fee asset
+    C_fee string `json:"c_fee"`
+    // balance of gas fee asset
+    B_fee int64 `json:"b_fee"`
+    // gas fee asset id
+    GasFeeAssetId int `json:"gas_fee_asset_id"`
+    // gas fee
+    GasFee int64 `json:"gas_fee"`
+}
+```
+
+### proveTransferNft
+
+```go
+type TransferNftSegmentFormat struct {
+    // account index
+    AccountIndex int `json:"account_index"`
+    // public key
+    Pk string `json:"pk"`
+    // private key
+    Sk string `json:"sk"`
+    // common input part
+    NftContentHash       string `json:"nft_content_hash"`
+    ReceiverAccountIndex int    `json:"receiver_account_index"`
+    // fee part
+    // encryption of balance of the gas fee asset
+    C_fee string `json:"c_fee"`
+    // balance of gas fee asset
+    B_fee int64 `json:"b_fee"`
+    // gas fee asset id
+    GasFeeAssetId int `json:"gas_fee_asset_id"`
+    // gas fee
+    GasFee int64 `json:"gas_fee"`
+}
+```
+
+### proveSetNftPrice
+
+```go
+type SetNftPriceSegmentFormat struct {
+    // account index
+    AccountIndex int `json:"account_index"`
+    // public key
+    Pk string `json:"pk"`
+    // private key
+    Sk string `json:"sk"`
+    // common input part
+    NftContentHash string `json:"nft_content_hash"`
+    AssetId        int    `json:"asset_id"`
+    AssetAmount    int64  `json:"asset_amount"`
+    // fee part
+    // encryption of balance of the gas fee asset
+    C_fee string `json:"c_fee"`
+    // balance of gas fee asset
+    B_fee int64 `json:"b_fee"`
+    // gas fee asset id
+    GasFeeAssetId int `json:"gas_fee_asset_id"`
+    // gas fee
+    GasFee int64 `json:"gas_fee"`
+}
+```
+
+### proveBuyNft
+
+```go
+type BuyNftSegmentFormat struct {
+    // account index
+    AccountIndex int `json:"account_index"`
+    // encryption of the balance
+    C string `json:"c"`
+    // public key
+    Pk string `json:"pk"`
+    // balance
+    B int64 `json:"b"`
+    // private key
+    Sk string `json:"sk"`
+    // owner index
+    OwnerAccountIndex int    `json:"owner_account_index"`
+    NftContentHash    string `json:"nft_content_hash"`
+    AssetId           int    `json:"asset_id"`
+    AssetAmount       int64  `json:"asset_amount"`
+    // fee part
+    // encryption of balance of the gas fee asset
+    C_fee string `json:"c_fee"`
+    // balance of gas fee asset
+    B_fee int64 `json:"b_fee"`
+    // gas fee asset id
+    GasFeeAssetId int `json:"gas_fee_asset_id"`
+    // gas fee
+    GasFee int64 `json:"gas_fee"`
+}
+```
+
+### proveWithdrawNft
+
+```go
+type WithdrawNftSegmentFormat struct {
+    // account index
+    AccountIndex int `json:"account_index"`
+    // public key
+    Pk string `json:"pk"`
+    // private key
+    Sk string `json:"sk"`
+    // common input part
+    NftContentHash string `json:"nft_content_hash"`
+    ReceiverAddr   string `json:"receiver_addr"`
+    ChainId        int    `json:"chain_id"`
+    // fee part
+    // encryption of balance of the gas fee asset
+    C_fee string `json:"c_fee"`
+    // balance of gas fee asset
+    B_fee int64 `json:"b_fee"`
+    // gas fee asset id
+    GasFeeAssetId int `json:"gas_fee_asset_id"`
+    // gas fee
+    GasFee int64 `json:"gas_fee"`
 }
 ```
 
