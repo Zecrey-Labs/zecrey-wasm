@@ -1,441 +1,584 @@
-# zecrey-wasm
+# zecrey-legend-wasm
 ## prerequisites
-
 - Node: v15.10.0
-- install live-server: `npm install -g live-server`
-
-## Have a try
-
-```sh
-$ live-server static
-
-# if you want to see the running time, add console.time('a'); before the command and console.timeEnd('a'); after the command
-# Call F12 in chrome
-> elgamalDec('PSjJUWon0WV1gQA/SxovPRS0XCyVdGpq0O+Ttjh+ZBe38+GdDtFhVNMrDZQKtfaZ5e1oPkgO2LRoxTMGp1pPoQ==','959120971630916186538306178761323785168020249928470126158942387495545940088',0,20000)
-
-> elgamalRawDec('PSjJUWon0WV1gQA/SxovPRS0XCyVdGpq0O+Ttjh+ZBe38+GdDtFhVNMrDZQKtfaZ5e1oPkgO2LRoxTMGp1pPoQ==','959120971630916186538306178761323785168020249928470126158942387495545940088')
-# it will output "mbZvQoX6SeRGKk/KtzmseBv/mUDHGFHKeEzk0e6eMyg="
-
-
-// withdraw fee id is the different from asset id, cost 2050.8ms
-> proveWithdraw('{"account_index": 1, "c":"m3jEfxmLrL9xXmr8hRjw2ddRuS9LD+ylbdr3w0JMuRZMdG3aiLo+hfDOezMSeXXiw+Jk2U/967RLC99qhgBTqA==", "pk":"fhtYaJmDcV93EuGRJUkiPQkgk+dr4mLKFdayOsiPKZo=","b":8, "b_star":2,"sk":"1534761834718427049701159954173450085001264109697049531015992277578747248868","asset_id":1,"chain_id":1,"receive_addr":"0xE9b15a2D396B349ABF60e53ec66Bcf9af262D449","c_fee":"m3jEfxmLrL9xXmr8hRjw2ddRuS9LD+ylbdr3w0JMuRbKvX/UaPrH9qMqHt7ddc//CQC7tdM9W7Cu1gPoFVpZKQ==", "b_fee":10, "gas_fee_asset_id": 2, "gas_fee": 1}')
-
-// withdraw fee id is the same with asset id, cost 1030.3ms
-> proveWithdraw('{"account_index": 1, "c":"m3jEfxmLrL9xXmr8hRjw2ddRuS9LD+ylbdr3w0JMuRZMdG3aiLo+hfDOezMSeXXiw+Jk2U/967RLC99qhgBTqA==", "pk":"fhtYaJmDcV93EuGRJUkiPQkgk+dr4mLKFdayOsiPKZo=","b":8, "b_star":2,"sk":"1534761834718427049701159954173450085001264109697049531015992277578747248868","asset_id":1,"chain_id":1,"receive_addr":"0xE9b15a2D396B349ABF60e53ec66Bcf9af262D449","c_fee":"m3jEfxmLrL9xXmr8hRjw2ddRuS9LD+ylbdr3w0JMuRZMdG3aiLo+hfDOezMSeXXiw+Jk2U/967RLC99qhgBTqA==", "b_fee":8, "gas_fee_asset_id": 1, "gas_fee": 1}')
-
-// transfer, cost 3226.2ms
-proveTransfer(1,1,'memo','[{"account_index":3,"balance_enc":"culWuzSA5GRNhmcW6PLnXFjEc5d6JHpO2T/bG7IVuw8kOkOYYJhhZR+1r22wvxDPM6TkPcG/i1w1q2UrUpcSpQ==", "balance":8,"pk":"uwZoQvXbsFtby4jMF8UBJb0JBXNsbpH4QSZsbZLmmiU=", "b_delta":-5,"sk":"223002292175769838011695137402304499871279309578783082705927886091292349997"},{"account_index":5,"balance_enc":"E+14t4Lw1mPaLz9Acz9go4DZ6LGo02np/rFQ1VUc3yziqGPjUvlUCZ3eH/eO/jYFXXa48POdYLmd2SL/QFybhw==", "pk":"PGEQNN9JrovV1YDv4xZeqVmlCWBHSXVkWKpSXyq2ywo=", "b_delta":1},{"account_index":7,"balance_enc":"k9puKUl1T5cT+mvpIsnlMNouoq1REbqkzXdG2E5yO7DmbGKYGTu0rDhPGY389Fy7tOqkvhYaMo/d4AzgqD/0kg==", "pk":"TNMIpxqvfQ0qSLEeUjvfm7HqtkGZVkI5ENZQZqE1/Qw=", "b_delta":3}]')
-
-// unlock, cost 1060ms
-> proveUnlock('{"chain_id": 1, "account_index": 3, "asset_id": 1, "balance": 10, "delta_amount": 2, "sk": "2041493538597675324666410744453729837490088098575671299940549194878600064888","c_fee": "O5c1cdSBhFUD0EFbvgZxzrXUptspSGrCzz04XaMhRyqOsR0LXpAMAoQEf2JLonpgDq0r9Jh87v7EfTd8OWIGBg==","b_fee":100,"gas_fee_asset_id":1,"gas_fee":1}')
-
-// swap fee id is different from asset A id, cost 2051ms
-> proveSwap('{"pair_index": 1, "account_index": 3, "c_u_a":"SzmequMLDzrCHitd1Hw2OfFUR9z5aoU/kGR5oJSHHafZrpEwOqbFtORhrfUkJFnpvA3rCWBpbrxgkY8MNCLKmQ==","pk_u":"G0KF3I8ZZWGX/qgdfFr8vodCaIHJ7Z//HrrWOy4jgxI=","pk_treasury":"ihHiw/wo0bYWrjDCm/e9LInpioTRUo0qSin5La0+1wY=","asset_a_id":1,"asset_b_id":2,"b_a_delta":1000,"b_u_a":2000,"min_b_b_delta":960,"fee_rate":30,"treasury_rate":10,"sk_u":"1020823131272693259381832026202869246252296047354804352294128070898636555720","c_fee":"RoudhBBVGj8HXjekzbwz6HixXgQL9UcCv7FayWHINyyyEM5PvH5E/8NW2qFwOwyL6s9Fpz0T0ZCfFlqcGuMAlA==","b_fee":1000,"gas_fee_asset_id":2,"gas_fee":30}')
-
-// swap fee id is the same with asset A id, cost 1069ms
-> proveSwap('{"pair_index": 1, "account_index": 3, "c_u_a":"SzmequMLDzrCHitd1Hw2OfFUR9z5aoU/kGR5oJSHHafZrpEwOqbFtORhrfUkJFnpvA3rCWBpbrxgkY8MNCLKmQ==","pk_u":"G0KF3I8ZZWGX/qgdfFr8vodCaIHJ7Z//HrrWOy4jgxI=","pk_treasury":"ihHiw/wo0bYWrjDCm/e9LInpioTRUo0qSin5La0+1wY=","asset_a_id":1,"asset_b_id":2,"b_a_delta":1000,"b_u_a":2000,"min_b_b_delta":960,"fee_rate":30,"treasury_rate":10,"sk_u":"1020823131272693259381832026202869246252296047354804352294128070898636555720","c_fee":"SzmequMLDzrCHitd1Hw2OfFUR9z5aoU/kGR5oJSHHafZrpEwOqbFtORhrfUkJFnpvA3rCWBpbrxgkY8MNCLKmQ==","b_fee":2000,"gas_fee_asset_id":1,"gas_fee":30}')
-
-// remove liquidity, cost 2140ms
-> proveRemoveLiquidity('{"pair_index":1,"account_index":3,"c_u_lp": "Z2usrAI8R6kTMPffQhenwofQNVbkuJOTbrV7VaoRDRmt3oDCs44OxoOeJUqwTRQp+G8TSlHt5s3BISkalrxkIg==", "pk_u": "8bJEpTgnV8lP0IoSCJkPiDlQqgJHtBhgorhVYsoAPZk=", "b_lp": 100, "delta_lp": 10, "min_b_a_delta": 1, "min_b_b_delta": 1, "asset_a_id": 1, "asset_b_id":2, "sk_u":"1772011849687470205402847695523573350402569355483737674338513374359825296680", "c_fee":"uD3Dg5Sb8IuTHDbyjb4fQUUlFAdElFpx13zuge5hYYvYLn3iwqle8R6IHTp7PKLlcLg9tu+qXU6jhaDkAXAnEA==", "b_fee": 100, "gas_fee_asset_id": 1, "gas_fee": 1}')
-
-// add liquidity fee id is different from asset A & B id, cost 3167ms
-> proveAddLiquidity('{"pair_index": 1, "account_index": 3, "c_u_a": "2gB49VKh7a2f6h3JGV0E/RDOQSIAMCzmBYLRezjkRIKuCep4r8/d3QlumgkRif6TCOmiVTrOWdsVwuy/CgKckA==", "c_u_b": "Wb/lsXjdM7z3iMy8BIMbVMWkWnpZYjaE51pNib4aBQUEbGVxm4YOHlVDS2w/AOnPwK2ACXS0aFPibAr98b2fiw==", "pk_pool": "c+wRqnuOTmf0NPaODB4X2509YbcWKwnmS3FAsWAl8RI=", "pk_u":"3+UC4GQtoTeOlbrdCyXsOZ2RTRlrrBJ/YqUJrHaOcAM=", "asset_a_id":1, "asset_b_id": 2, "b_u_a": 8, "b_u_b":4,"b_a_delta": 1, "b_b_delta": 1,"sk_u":"1118266912864228166266853607897072317618597295146579649989703085257983434856", "c_fee": "JSMbRnfH21L6yBYVY2obt1YeiLeCeaN0opI5eiszwCzoS0ecC/wKHJG5lCqSbKkadaHkNEBLNFFKCfSbvGNuIQ==", "b_fee":100, "gas_fee_asset_id": 3, "gas_fee": 10}')
-
-// add liquidity fee id is the same with asset A id, cost 2304ms
-> proveAddLiquidity('{"pair_index": 1, "account_index": 3, "c_u_a": "2gB49VKh7a2f6h3JGV0E/RDOQSIAMCzmBYLRezjkRIKuCep4r8/d3QlumgkRif6TCOmiVTrOWdsVwuy/CgKckA==", "c_u_b": "Wb/lsXjdM7z3iMy8BIMbVMWkWnpZYjaE51pNib4aBQUEbGVxm4YOHlVDS2w/AOnPwK2ACXS0aFPibAr98b2fiw==", "pk_pool": "c+wRqnuOTmf0NPaODB4X2509YbcWKwnmS3FAsWAl8RI=", "pk_u":"3+UC4GQtoTeOlbrdCyXsOZ2RTRlrrBJ/YqUJrHaOcAM=", "asset_a_id":1, "asset_b_id": 2, "b_u_a": 8, "b_u_b":4,"b_a_delta": 1, "b_b_delta": 1,"sk_u":"1118266912864228166266853607897072317618597295146579649989703085257983434856", "c_fee": "2gB49VKh7a2f6h3JGV0E/RDOQSIAMCzmBYLRezjkRIKuCep4r8/d3QlumgkRif6TCOmiVTrOWdsVwuy/CgKckA==", "b_fee":8, "gas_fee_asset_id": 1, "gas_fee": 1}')
-
-// add liquidity fee id is the same with asset B id, cost 2314ms
-> proveAddLiquidity('{"pair_index": 1, "account_index": 3, "c_u_a": "2gB49VKh7a2f6h3JGV0E/RDOQSIAMCzmBYLRezjkRIKuCep4r8/d3QlumgkRif6TCOmiVTrOWdsVwuy/CgKckA==", "c_u_b": "Wb/lsXjdM7z3iMy8BIMbVMWkWnpZYjaE51pNib4aBQUEbGVxm4YOHlVDS2w/AOnPwK2ACXS0aFPibAr98b2fiw==", "pk_pool": "c+wRqnuOTmf0NPaODB4X2509YbcWKwnmS3FAsWAl8RI=", "pk_u":"3+UC4GQtoTeOlbrdCyXsOZ2RTRlrrBJ/YqUJrHaOcAM=", "asset_a_id":1, "asset_b_id": 2, "b_u_a": 8, "b_u_b":4,"b_a_delta": 1, "b_b_delta": 1,"sk_u":"1118266912864228166266853607897072317618597295146579649989703085257983434856", "c_fee": "Wb/lsXjdM7z3iMy8BIMbVMWkWnpZYjaE51pNib4aBQUEbGVxm4YOHlVDS2w/AOnPwK2ACXS0aFPibAr98b2fiw==", "b_fee":4, "gas_fee_asset_id": 2, "gas_fee": 1}')
-
-> proveMintNft('{"account_index":0,"pk":"4uA+cBJAeV3Fw6VcZRi6GxSHRm06tgWZ7r9gkiDzNpc=","sk":"2073942362777190894649839587911172153339757863207512928340352386750181764118","nft_name":"test","nft_url":"https://test.com/a.jpg","nft_collection_id":1,"nft_introduction":"test nft","nft_attributes":"1:2","receiver_account_index":0,"c_fee":"/IfGU/5r2Jdww4Q/Z28eGO2bQsJBTvyzmy9Qz1v6mJDErMQ927/XInUDC/45+7zwXRujNDsjPK0zAaT0bVOiDg==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
-
-> proveTransferNft('{"account_index":0,"pk":"4uA+cBJAeV3Fw6VcZRi6GxSHRm06tgWZ7r9gkiDzNpc=","sk":"2073942362777190894649839587911172153339757863207512928340352386750181764118","nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","receiver_account_index":1,"c_fee":"/IfGU/5r2Jdww4Q/Z28eGO2bQsJBTvyzmy9Qz1v6mJDErMQ927/XInUDC/45+7zwXRujNDsjPK0zAaT0bVOiDg==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
-
-> proveSetNftPrice('{"account_index":0,"pk":"4uA+cBJAeV3Fw6VcZRi6GxSHRm06tgWZ7r9gkiDzNpc=","sk":"2073942362777190894649839587911172153339757863207512928340352386750181764118","nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","asset_id":1,"asset_amount":10,"c_fee":"/IfGU/5r2Jdww4Q/Z28eGO2bQsJBTvyzmy9Qz1v6mJDErMQ927/XInUDC/45+7zwXRujNDsjPK0zAaT0bVOiDg==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
-
-> proveBuyNft('{"account_index":0,"c":"lQn5GcmB0DLr2VvC8ttJK9pkjZESu0aUfBeiICge6Ae5GDbfLc8QwHpFeIBdvzbv2dMGIlVF7lkx05720w0psA==","pk":"RrJYKK4xRJBkyuk9sFtTjmtBer7lhEwElxIRvDjFrKs=","b":8,"sk":"475102078831139334017978367390533535565844015034988513555777843897424109597","owner_account_index":4,"nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","asset_id":2,"asset_amount":5,"c_fee":"lQn5GcmB0DLr2VvC8ttJK9pkjZESu0aUfBeiICge6Ac2UXTOz5146FGzJNLyFa4fhebya39lHPNvAXCS+Shpjw==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
-
-> proveWithdrawNft('{"account_index":0,"pk":"RrJYKK4xRJBkyuk9sFtTjmtBer7lhEwElxIRvDjFrKs=","sk":"475102078831139334017978367390533535565844015034988513555777843897424109597","nft_content_hash":"19f6476e2bcd371b3936db3c9adfaae8a16bae719eb2a8c45d4fbf716687785b","receiver_addr":"0xd5Aa3B56a2E2139DB315CdFE3b34149c8ed09171","chain_id":0,"c_fee":"lQn5GcmB0DLr2VvC8ttJK9pkjZESu0aUfBeiICge6Ac2UXTOz5146FGzJNLyFa4fhebya39lHPNvAXCS+Shpjw==","b_fee":10,"gas_fee_asset_id":1,"gas_fee":1}')
-
-```
-
-
 
 ## SDK
 
-### elgamalEnc
+### getEddsaPublicKey
 
+#### Description
+generate public key
+
+#### Params
 | Name | Type   | Comment                                       |
 | ---- | ------ | --------------------------------------------- |
-| sk   | string | private key, 251bits, type is BigInt, base 10 |
-| b    | int    | amount                                        |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
 
-### elgamalDec
 
-| Name  | Type   | Comment                                       |
-| ----- | ------ | --------------------------------------------- |
-| CStr  | string | encryption value, 64B                         |
-| sk    | string | private key, 251bits, type is BigInt, base 10 |
-| start | int    | dec start value, default use 0                |
-| end   | int    | dec end value ,default use $2^{32}$           |
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.getEddsaPublicKey("seed phrase")
+# '06cdb3200f1e0e7dd7ea789b41d88662a1b4c213075633088773025289bdbd05'
+```
 
-### elgamalRawDec
+### generateEddsaKey
+#### Description
+generate private key
 
+#### Params
 | Name | Type   | Comment                                       |
 | ---- | ------ | --------------------------------------------- |
-| CStr | string | encryption value, 64B                         |
-| sk   | string | private key, 251bits, type is BigInt, base 10 |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
 
-### getL2PublicKey
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.eddsaSign("seed phrase", "hello world")
+# '88b80d96d3eadb67ad7e8d86b731ce4b1bab5a46bc8c33fbf8b346a658007e90024f87ff59fb24adbd8ae56c6880b24c9937807eda097afcb26f0590e4eca860'
+```
 
+
+### eddsaSign
+#### Description
+sign message and generate signature
+
+#### Params
+| Name | Type   | Comment                                       |
+| ---- | ------ | --------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| message | string | message string  |
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.generateEddsaKey("seed phrase")
+# '06cdb3200f1e0e7dd7ea789b41d88662a1b4c213075633088773025289bdbd05137c9eeead2d4286a9779a71ed25f5da61fe2790e21f2437b909dfd76eeb00ce53896c61c2948dd9018661b0928cca52ca05a2e764c81a7f8badc9b27c4ca144'
+```
+
+### eddsaVerify
+#### Description
+verify signature with public key and message
+
+#### Params
 | Name | Type   | Comment                                                    |
 | ---- | ------ | ---------------------------------------------------------- |
-| sk   | string | private key, length range 251~256, type is BigInt, base 10 |
+| pk   | string | public key, 256 bits, base 16  |
+| signature   | string | signature string  |
+| message   | string | message string  |
 
-### proveWithdraw
-
-> only one input: JSON format **string**
-
-```go
-type WithdrawSegmentFormat struct {
-	// account index
-	AccountIndex int    `json:"account_index"`
-	// encryption of the balance
-	C            string `json:"c"`
-	// public key
-	Pk           string `json:"pk"`
-	// balance
-	B            int64  `json:"b"`
-	// withdraw amount
-	BStar        int64  `json:"b_star"`
-	// private key
-	Sk           string `json:"sk"`
-	// asset id
-	AssetId      int    `json:"asset_id"`
-	// chain id
-	ChainId      int    `json:"chain_id"`
-	// receive address
-	ReceiveAddr  string `json:"receive_addr"`
-	// fee part
-	// encryption of balance of the gas fee asset
-	C_fee         string `json:"c_fee"`
-	// balance of gas fee asset
-	B_fee         int64  `json:"b_fee"`
-	// gas fee asset id
-	GasFeeAssetId int    `json:"gas_fee_asset_id"`
-	// gas fee
-	GasFee        int64  `json:"gas_fee"`
-}
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.eddsaVerify("06cdb3200f1e0e7dd7ea789b41d88662a1b4c213075633088773025289bdbd05", "88b80d96d3eadb67ad7e8d86b731ce4b1bab5a46bc8c33fbf8b346a658007e90024f87ff59fb24adbd8ae56c6880b24c9937807eda097afcb26f0590e4eca860", "hello world")
+# true
 ```
 
-### proveUnlock
+### signAddLiquidity
+#### Description
+sign addLiquidity transaction
 
-> only one input: JSON format **string**
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
 
-```go
-type UnlockSegmentFormat struct {
-	// chain id
-	ChainId      int    `json:"chain_id"`
-	// account index
-	AccountIndex int    `json:"account_index"`
-	// asset id
-	AssetId      int    `json:"asset_id"`
-	// balance
-	Balance      int64  `json:"balance"`
-	// unlock amount
-	DeltaAmount  int64  `json:"delta_amount"`
-	// private key
-	Sk           string `json:"sk"`
-	// fee part
-	// encryption of the balance of the gas fee
-	C_fee         string `json:"c_fee"`
-	// gas fee balance
-	B_fee         int64  `json:"b_fee"`
-	// gas fee asset id
-	GasFeeAssetId int    `json:"gas_fee_asset_id"`
-	// gas fee
-	GasFee        int64  `json:"gas_fee"`
-}
-```
-
-### proveTransfer
-
-| Name    | Type   | Comment             |
-| ------- | ------ | ------------------- |
-| assetId | int    | unique asset id     |
-| gasFee  | int    | transaction gas fee |
-| memo    | string | memo                |
-
-> JSON format string
-
-```go
-// TransferSegmentFormat Format is used to accept JSON string
-type TransferSegmentFormat struct {
-	// account index
-	AccountIndex int `json:"account_index"`
-	// ElGamalEnc
-	BalanceEnc string `json:"balance_enc"`
-	// Balance
-	Balance int64 `json:"Balance"`
-	// public key
-	Pk string `json:"pk"`
-	// bDelta
-	BDelta int64 `json:"b_delta"`
-	// secret key
-	Sk string `json:"Sk"`
-}
-```
-
-### proveSwap
-
-> only one input: JSON format **string**
-
-```go
-/*
-	SwapSegmentFormat: format version of SwapSegment
-*/
-type SwapSegmentFormat struct {
-	// pair index
-	PairIndex    int    `json:"pair_index"`
-	// account index
-	AccountIndex int    `json:"account_index"`
-	// encryption of the balance of asset A
-	C_uA         string `json:"c_u_a"`
-	// user public key
-	Pk_u         string `json:"pk_u"`
-	// system treasury account public key
-	Pk_treasury  string `json:"pk_treasury"`
-	// asset a id
-	AssetAId     int    `json:"asset_a_id"`
-	// asset b id
-	AssetBId     int    `json:"asset_b_id"`
-	// swap amount for asset a
-	B_A_Delta    int64  `json:"b_a_delta"`
-	// balance for asset a
-	B_u_A        int64  `json:"b_u_a"`
-	// equal to B * (1 - slippage), B gets from the layer-2
-	MinB_B_Delta int64  `json:"min_b_b_delta"`
-	// fee rate, gets from layer-2
-	FeeRate      int    `json:"fee_rate"`
-	// treasury rate gets from layer-2
-	TreasuryRate int    `json:"treasury_rate"`
-	// private key
-	Sk_u         string `json:"sk_u"`
-	// fee part
-	C_fee         string `json:"c_fee"`
-	B_fee         int64  `json:"b_fee"`
-	GasFeeAssetId int    `json:"gas_fee_asset_id"`
-	GasFee        int64  `json:"gas_fee"`
-}
-```
-
-### proveAddLiquidity
-
-> only one input: JSON format **string**
+- segment format struct
 
 ```go
 type AddLiquiditySegmentFormat struct {
-	PairIndex    int    `json:"pair_index"`
-	AccountIndex int    `json:"account_index"`
-	C_uA         string `json:"c_u_a"`
-	C_uB         string `json:"c_u_b"`
-	Pk_pool      string `json:"pk_pool"`
-	Pk_u         string `json:"pk_u"`
-	AssetAId     int    `json:"asset_a_id"`
-	AssetBId     int    `json:"asset_b_id"`
-	B_uA         int64  `json:"b_u_a"`
-	B_uB         int64  `json:"b_u_b"`
-	B_A_Delta    int64  `json:"b_a_delta"`
-	B_B_Delta    int64  `json:"b_b_delta"`
-	Sk_u         string `json:"sk_u"`
-	// fee part
-	C_fee         string `json:"c_fee"`
-	B_fee         int64  `json:"b_fee"`
-	GasFeeAssetId int    `json:"gas_fee_asset_id"`
-	GasFee        int64  `json:"gas_fee"`
+    FromAccountIndex  int64  `json:"from_account_index"`
+    PairIndex         int64  `json:"pair_index"`
+    AssetAId          int64  `json:"asset_a_id"`
+    AssetAAmount      string `json:"asset_a_amount"`
+    AssetBId          int64  `json:"asset_b_id"`
+    AssetBAmount      string `json:"asset_b_amount"`
+    LpAmount          string `json:"lp_amount"`
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    ExpiredAt         int64  `json:"expired_at"` 
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 10 minutes
+    Nonce             int64  `json:"nonce"`  
+	// transaction amount +1 for fromAccountIndex 
 }
 ```
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signAddLiquidity("seed phrase", '{"from_account_index":0,"pair_index":0,"asset_a_id":1,"asset_a_amount":"10000","asset_b_id":2,"asset_b_amount":"100","lp_amount":"1000","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"FromAccountIndex":0,"PairIndex":0,"AssetAId":1,"AssetAAmount":10000,"AssetBId":2,"AssetBAmount":100,"LpAmount":1000,"KLast":null,"TreasuryAmount":null,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"QgkTDbEq3Pq7AjidooPyfHmlSa1VuBAgqv57XjOT7yQC6OzNBv6YQLSm6U1BmPKA/qzFhfpnVFR8jL64kX/W+g=="}'
+```
 
-### proveRemoveLiquidity
+### signRemoveLiquidity
+#### Description
+sign removeLiquidity transaction
 
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
 ```go
 type RemoveLiquiditySegmentFormat struct {
-	PairIndex    int    `json:"pair_index"`
-	AccountIndex int    `json:"account_index"`
-	C_u_LP       string `json:"c_u_lp"`
-	Pk_u         string `json:"pk_u"`
-	B_LP         int64  `json:"b_lp"`
-	Delta_LP     int64  `json:"delta_lp"`
-	MinB_A_Delta int64  `json:"min_b_a_delta"`
-	MinB_B_Delta int64  `json:"min_b_b_delta"`
-	AssetAId     int    `json:"asset_a_id"`
-	AssetBId     int    `json:"asset_b_id"`
-	Sk_u         string `json:"sk_u"`
-	// fee part
-	C_fee         string `json:"c_fee"`
-	B_fee         int64  `json:"b_fee"`
-	GasFeeAssetId int    `json:"gas_fee_asset_id"`
-	GasFee        int64  `json:"gas_fee"`
+    FromAccountIndex  int64  `json:"from_account_index"`
+    PairIndex         int64  `json:"pair_index"`
+    AssetAId          int64  `json:"asset_a_id"`
+    AssetAMinAmount   string `json:"asset_a_min_amount"`
+	// minimum amount assetA 'from' user will receive by burning 'lpAmount' lp tokens , it depends on slippage
+    AssetBId          int64  `json:"asset_b_id"`
+    AssetBMinAmount   string `json:"asset_b_min_amount"`
+	// minimum amount assetB 'from' user will receive by burning 'lpAmount' lp tokens , it depends on slippage
+    LpAmount          string `json:"lp_amount"`
+    AssetAAmountDelta string `json:"asset_a_amount_delta"`
+	// AssetA amount delta in theory
+    AssetBAmountDelta string `json:"asset_b_amount_delta"`
+	// AssetB amount delta in theory
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    ExpiredAt         int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 10 minutes
+    Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for fromAccountIndex 
 }
 ```
 
-### proveMintNft
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signRemoveLiquidity("seed phrase", '{"from_account_index":0,"pair_index":0,"asset_a_id":1,"asset_a_min_amount":"9000","asset_b_id":2,"asset_b_min_amount":"90","lp_amount":"1000","asset_a_amount_delta":"10000","asset_b_amount_delta":"100","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"FromAccountIndex":0,"PairIndex":0,"AssetAId":1,"AssetAMinAmount":9000,"AssetBId":2,"AssetBMinAmount":90,"LpAmount":1000,"AssetAAmountDelta":10000,"AssetBAmountDelta":100,"KLast":null,"TreasuryAmount":null,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"KCrHHfiioPSTtm3FKWnJAEDPAYEyjEGnN+LOHyaZAIUFgTYZNdk+HsYppD+Cz1/Ekd7tR7onrGESbFqRAAnsWg=="}'
+```
 
+### signSwap
+#### Description
+sign swap transaction
+
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type SwapSegmentFormat struct {
+    FromAccountIndex  int64  `json:"from_account_index"`
+    PairIndex         int64  `json:"pair_index"`
+    AssetAId          int64  `json:"asset_a_id"`
+    AssetAAmount      string `json:"asset_a_amount"`
+    AssetBId          int64  `json:"asset_b_id"`
+    AssetBMinAmount   string `json:"asset_b_min_amount"`
+	// minimum amount assetB 'from' user will receive by swapping 'AssetAAmount' AssetA , it depends on slippage
+    AssetBAmountDelta string `json:"asset_b_amount_delta"`
+	// AssetB amount delta in theory
+
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    ExpiredAt         int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 10 minutes
+    Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for fromAccountIndex 
+}
+```
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signSwap("seed phrase", '{"from_account_index":0,"pair_index":0,"asset_a_id":1,"asset_a_amount":"10000","asset_b_id":2,"asset_b_min_amount":"95","asset_b_amount_delta":"99","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"FromAccountIndex":0,"PairIndex":0,"AssetAId":1,"AssetAAmount":10000,"AssetBId":2,"AssetBMinAmount":95,"AssetBAmountDelta":99,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"cVvwCUOydTtp6ofqJfSz+rzs9OU9/tzACj1QSUSX84sCFRkYw0zoJPQr0sN7btHKZFxNj4ARb6tqNiUybKgm5g=="}'
+```
+
+### signTransfer
+#### Description
+sign transfer transaction
+
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type TransferSegmentFormat struct {
+    FromAccountIndex  int64  `json:"from_account_index"`
+    ToAccountIndex    int64  `json:"to_account_index"`
+    ToAccountNameHash string `json:"to_account_name"`
+	// AccountName SHA256 Hash
+	/*
+	Code in JS
+
+	const { createHash } = require('crypto');
+
+	function hash(string) {
+		return createHash('sha256').update(string).digest('hex');
+	}	
+	console.log(hash('gavin.zecrey'));
+	# ddc6171f9fe33153d95c8394c9135c277eb645401b85eb499393a2aefe6422a6
+	*/
+
+    AssetId           int64  `json:"asset_id"`
+    AssetAmount       string `json:"asset_amount"`
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    Memo              string `json:"memo"`
+	// Memo length range: [0:100] 
+    CallData          string `json:"call_data"`
+    ExpiredAt         int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 10 minutes
+    Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for fromAccountIndex 
+}
+```
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signTransfer("seed phrase", '{"from_account_index":0,"to_account_index":1,"to_account_name":"ddc6171f9fe33153d95c8394c9135c277eb645401b85eb499393a2aefe6422a6","asset_id":0,"asset_amount":"100","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","memo":"transfer memo","call_data":"","expired_at":1654656781000,"nonce":1}')
+# '{"FromAccountIndex":0,"ToAccountIndex":1,"ToAccountNameHash":"ddc6171f9fe33153d95c8394c9135c277eb645401b85eb499393a2aefe6422a6","AssetId":0,"AssetAmount":100,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"Memo":"transfer memo","CallData":"","CallDataHash":"Dd56AihX/sG4/6dmSpN6JQ065o81YGF1TTUx4mdBA9g=","ExpiredAt":1654656781000,"Nonce":1,"Sig":"qkZAheH1WxQDSKxZlp+wPyWrVZxgqjkNQYbbHfSyLCgCsgjwbXI9s0hS+e+ZB0XRYBEJi/KZ/otXtmF/o67n0Q=="}'
+```
+
+
+### signWithdraw
+#### Description
+sign withdraw transaction
+
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type WithdrawSegmentFormat struct {
+    FromAccountIndex  int64  `json:"from_account_index"`
+    AssetId           int64  `json:"asset_id"`
+    AssetAmount       string `json:"asset_amount"`
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    ToAddress         string `json:"to_address"`
+	// L1 address based on ecdsa. 
+	// eg. 0x507Bd54B4232561BC0Ca106F7b029d064fD6bE4c
+    ExpiredAt         int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 10 minutes
+    Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for fromAccountIndex 
+}
+```
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signWithdraw("seed phrase", '{"from_account_index":0,"asset_id":0,"asset_amount":"100","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","to_address":"0x507Bd54B4232561BC0Ca106F7b029d064fD6bE4c","expired_at":1654656781000,"nonce":1}')
+# '{"FromAccountIndex":0,"AssetId":0,"AssetAmount":100,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ToAddress":"0x507Bd54B4232561BC0Ca106F7b029d064fD6bE4c","ExpiredAt":1654656781000,"Nonce":1,"Sig":"nvZFgteheqYDAqRipkE5VtpkQt0ppu1VVlqpOnQn8o0BNkq0yvwQFhrEOTtgBliP3aaVqNSkHmEqtUVID5DOlg=="}'
+```
+
+### signOffer
+#### Description
+sign offer nft transaction
+
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type OfferSegmentFormat struct {
+    Type         int64  `json:"type"`
+	// 0 : buy/ 1: sell
+    OfferId      int64  `json:"offer_id"`
+	// maxOfferId +1 for AccountIndex 
+    AccountIndex int64  `json:"account_index"`
+    NftIndex     int64  `json:"nft_index"`
+    AssetId      int64  `json:"asset_id"`
+    AssetAmount  string `json:"asset_amount"`
+    ListedAt     int64  `json:"listed_at"`
+	// transaction list time in milli-second type  
+	// eg. current timestamp
+    ExpiredAt    int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 1 week
+    TreasuryRate int64  `json:"treasury_rate"`
+	// treasury fee rate, it can be found by query api. 1 is corresponding to one ten thousandth. 
+	// eg. 30 => 0.3% ; 2000 => 20%
+}
+```
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signOffer("seed phrase", '{"type":0,"offer_id":1,"account_index":1,"nft_index":1500,"asset_id":1,"asset_amount":"10000","listed_at":1654656761000,"expired_at":1654656781000,"treasury_rate":200}')
+# '{"Type":0,"OfferId":1,"AccountIndex":1,"NftIndex":1500,"AssetId":1,"AssetAmount":10000,"ListedAt":1654656761000,"ExpiredAt":1654656781000,"TreasuryRate":200,"Sig":"f7EryTm0P7xCgDYsyB+R+Of3ZHHyVa4uEI721shjoQgFdYuoMst49X0NFf9MraQevweNVH+728FHh0c1hEz20A=="}'
+```
+
+
+### signAtomicMatch
+#### Description
+sign atomicMatch transaction
+
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type AtomicMatchSegmentFormat struct {
+	AccountIndex int64  `json:"account_index"`
+	BuyOffer     string `json:"buy_offer"`
+	// OfferTxInfo JSON String
+	SellOffer string `json:"sell_offer"`
+	// OfferTxInfo JSON String
+	GasAccountIndex   int64  `json:"gas_account_index"`
+	GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+	GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+	Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for AccountIndex 
+	ExpiredAt int64 `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 1 week
+}
+
+type OfferTxInfo struct {
+    Type         int64
+    OfferId      int64
+	// maxOfferId +1 for AccountIndex 
+    AccountIndex int64
+    NftIndex     int64
+    AssetId      int64
+    AssetAmount  *big.Int
+    ListedAt     int64
+	// transaction list time in milli-second type  
+	// eg. current timestamp
+    ExpiredAt    int64
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 1 week
+    TreasuryRate int64
+	// treasury fee rate, it can be found by query api. 1 is corresponding to one ten thousandth. 
+	// eg. 30 => 0.3% ; 2000 => 20%
+    Sig          []byte
+}
+
+/*
+	signOffer returns OfferTxInfo String:
+
+	Buy offer:
+	'{"Type":0,"OfferId":1,"AccountIndex":1,"NftIndex":1500,"AssetId":1,"AssetAmount":10000,"ListedAt":1654656761000,"ExpiredAt":1654656781000,"TreasuryRate":200,"Sig":"f7EryTm0P7xCgDYsyB+R+Of3ZHHyVa4uEI721shjoQgFdYuoMst49X0NFf9MraQevweNVH+728FHh0c1hEz20A=="}'
+
+	Sell offer:
+	'{"Type":1,"OfferId":1,"AccountIndex":2,"NftIndex":1500,"AssetId":1,"AssetAmount":10000,"ListedAt":1654656751000,"ExpiredAt":1654656791000,"TreasuryRate":200,"Sig":"cCh08P8RloU+uNZESVVbl5mqOFiiXR2JRJaAnmqxz6gCBXny2J9OUh5X7tRHaEBxDRRXQ1mQGMVMoe1/ncw3sQ=="}'
+*/
+```
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signAtomicMatch("seed phrase", "{\"account_index\":0,\"buy_offer\":\"{\\\"Type\\\":0,\\\"OfferId\\\":1,\\\"AccountIndex\\\":1,\\\"NftIndex\\\":1500,\\\"AssetId\\\":1,\\\"AssetAmount\\\":10000,\\\"ListedAt\\\":1654656761000,\\\"ExpiredAt\\\":1654656781000,\\\"TreasuryRate\\\":200,\\\"Sig\\\":\\\"f7EryTm0P7xCgDYsyB+R+Of3ZHHyVa4uEI721shjoQgFdYuoMst49X0NFf9MraQevweNVH+728FHh0c1hEz20A==\\\"}\",\"sell_offer\":\"{\\\"Type\\\":1,\\\"OfferId\\\":1,\\\"AccountIndex\\\":2,\\\"NftIndex\\\":1500,\\\"AssetId\\\":1,\\\"AssetAmount\\\":10000,\\\"ListedAt\\\":1654656751000,\\\"ExpiredAt\\\":1654656791000,\\\"TreasuryRate\\\":200,\\\"Sig\\\":\\\"cCh08P8RloU+uNZESVVbl5mqOFiiXR2JRJaAnmqxz6gCBXny2J9OUh5X7tRHaEBxDRRXQ1mQGMVMoe1/ncw3sQ==\\\"}\",\"gas_account_index\":1,\"gas_fee_asset_id\":3,\"gas_fee_asset_amount\":\"3\",\"nonce\":1,\"expired_at\":1654656781000}")
+# '{"AccountIndex":0,"BuyOffer":{"Type":0,"OfferId":1,"AccountIndex":1,"NftIndex":1500,"AssetId":1,"AssetAmount":10000,"ListedAt":1654656761000,"ExpiredAt":1654656781000,"TreasuryRate":200,"Sig":"f7EryTm0P7xCgDYsyB+R+Of3ZHHyVa4uEI721shjoQgFdYuoMst49X0NFf9MraQevweNVH+728FHh0c1hEz20A=="},"SellOffer":{"Type":1,"OfferId":1,"AccountIndex":2,"NftIndex":1500,"AssetId":1,"AssetAmount":10000,"ListedAt":1654656751000,"ExpiredAt":1654656791000,"TreasuryRate":200,"Sig":"cCh08P8RloU+uNZESVVbl5mqOFiiXR2JRJaAnmqxz6gCBXny2J9OUh5X7tRHaEBxDRRXQ1mQGMVMoe1/ncw3sQ=="},"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"CreatorAmount":null,"TreasuryAmount":null,"Nonce":1,"ExpiredAt":1654656781000,"Sig":"IvNyf5kQDJugu6gxlJi1pBhLsdhm6bU5lmwipOm4bKgAjbLEYpmf3PxFpMvKLI1a1H1syHzrBFy0QD3K4CMJ4g=="}'
+```
+
+
+
+### signCancelOffer
+#### Description
+sign cancelOffer transaction
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type CancelOfferSegmentFormat struct {
+    AccountIndex      int64  `json:"account_index"`
+    OfferId           int64  `json:"offer_id"`
+	// maxOfferId +1 for AccountIndex 
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    ExpiredAt         int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 1 week
+    Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for AccountIndex 
+}
+```
+
+#### Example
+```bash
+# Call F12 in chrome
+> globalThis.signCancelOffer("seed phrase", '{"account_index":0,"offer_id":1,"gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"AccountIndex":0,"OfferId":1,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"cqwa4w8tjlvB4WKqs0Di/p97reaoH4TVh+h0TtRP8QsE1r+/QQOdptBUd2A9uVp8FATciJNxP4EpYouM2daPSg=="}'
+```
+
+
+### signCreateCollection
+#### Description
+sign create collection transaction
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
+```go
+type CreateCollectionSegmentFormat struct {
+    AccountIndex      int64  `json:"account_index"`
+    CollectionId      int64  `json:"collection_id"`
+    Name              string `json:"name"`
+    Introduction      string `json:"introduction"`
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    ExpiredAt         int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 1 week
+    Nonce             int64  `json:"nonce"`
+	// transaction amount +1 for AccountIndex 
+}
+```
+
+#### Example
+```bash
+# Call F12 in chrome   
+> globalThis.signCreateCollection("seed phrase", '{"account_index":0,"collection_id":1,"name":"crypto punk","introduction":"crypto punk is the king of jpeg nft","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"AccountIndex":0,"CollectionId":1,"Name":"crypto punk","Introduction":"crypto punk is the king of jpeg nft","GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"cqwa4w8tjlvB4WKqs0Di/p97reaoH4TVh+h0TtRP8QsE1r+/QQOdptBUd2A9uVp8FATciJNxP4EpYouM2daPSg=="}'
+```
+
+
+### signMintNft
+#### Description
+sign mint nft transaction
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
 ```go
 type MintNftSegmentFormat struct {
-    // account index
-    AccountIndex int `json:"account_index"`
-    // public key
-    Pk string `json:"pk"`
-    // private key
-    Sk string `json:"sk"`
-    // common input part
-    NftName              string `json:"nft_name"`
-    NftUrl               string `json:"nft_url"`
-    NftCollectionId      uint32 `json:"nft_collection_id"`
-    NftIntroduction      string `json:"nft_introduction"`
-    NftAttributes        string `json:"nft_attributes"`
-    ReceiverAccountIndex int    `json:"receiver_account_index"`
-    // fee part
-    // encryption of balance of the gas fee asset
-    C_fee string `json:"c_fee"`
-    // balance of gas fee asset
-    B_fee int64 `json:"b_fee"`
-    // gas fee asset id
-    GasFeeAssetId int `json:"gas_fee_asset_id"`
-    // gas fee
-    GasFee int64 `json:"gas_fee"`
+    CreatorAccountIndex int64  `json:"creator_account_index"`
+	// CreatorAccountIndex can be found by quering api. 
+    ToAccountIndex      int64  `json:"to_account_index"`
+    ToAccountNameHash   string `json:"to_account_name_hash"`
+    NftContentHash      string `json:"nft_content_hash"`
+	// NftContentHash can be found by quering api. 
+    NftCollectionId     int64  `json:"nft_collection_id"`
+	// NftCollectionId can be found by quering api. 
+    CreatorTreasuryRate int64  `json:"creator_treasury_rate"`
+	// treasury fee rate, it can be found by quering api. 1 is corresponding to one ten thousandth. 
+	// eg. 30 => 0.3% ; 2000 => 20%
+    GasAccountIndex     int64  `json:"gas_account_index"`
+    GasFeeAssetId       int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount   string `json:"gas_fee_asset_amount"`
+    ExpiredAt           int64  `json:"expired_at"`
+	// transaction expire time in milli-second type  
+	// eg. current timestamp + 1 week
+    Nonce               int64  `json:"nonce"`
+	// transaction amount +1 for AccountIndex 
 }
 ```
 
-### proveTransferNft
+#### Example
+```bash
+# Call F12 in chrome   
+> globalThis.signMintNft("seed phrase", '{"creator_account_index":15,"to_account_index":1,"to_account_name_hash":"ddc6171f9fe33153d95c8394c9135c277eb645401b85eb499393a2aefe6422a6","nft_content_hash":"7eb645401b85eb499393a2aefe6422a6ddc6171f9fe33153d95c8394c9135c27","nft_collection_id":65,"creator_treasury_rate":30,"gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"CreatorAccountIndex":15,"ToAccountIndex":1,"ToAccountNameHash":"ddc6171f9fe33153d95c8394c9135c277eb645401b85eb499393a2aefe6422a6","NftIndex":0,"NftContentHash":"7eb645401b85eb499393a2aefe6422a6ddc6171f9fe33153d95c8394c9135c27","NftCollectionId":65,"CreatorTreasuryRate":30,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"tbFr0GpwghhEqsW62a1sJ2Dn5gxPK1b3n+xDFrtvIpcEAhWH9SXu3nAr70k+l6BirwDjU83qXodgowXqCLXlWg=="}'
+```
 
+### signTransferNft
+#### Description
+sign transfer nft transaction
+
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
+
+- segment format struct
 ```go
 type TransferNftSegmentFormat struct {
-    // account index
-    AccountIndex int `json:"account_index"`
-    // public key
-    Pk string `json:"pk"`
-    // private key
-    Sk string `json:"sk"`
-    // common input part
-    NftContentHash       string `json:"nft_content_hash"`
-    ReceiverAccountIndex int    `json:"receiver_account_index"`
-    // fee part
-    // encryption of balance of the gas fee asset
-    C_fee string `json:"c_fee"`
-    // balance of gas fee asset
-    B_fee int64 `json:"b_fee"`
-    // gas fee asset id
-    GasFeeAssetId int `json:"gas_fee_asset_id"`
-    // gas fee
-    GasFee int64 `json:"gas_fee"`
+    FromAccountIndex  int64  `json:"from_account_index"`
+    ToAccountIndex    int64  `json:"to_account_index"`
+    ToAccountNameHash string `json:"to_account_name"`
+    NftIndex          int64  `json:"nft_index"`
+    GasAccountIndex   int64  `json:"gas_account_index"`
+    GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+    GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+    CallData          string `json:"call_data"`
+    ExpiredAt         int64  `json:"expired_at"`
+    Nonce             int64  `json:"nonce"`
 }
 ```
 
-### proveSetNftPrice
-
-```go
-type SetNftPriceSegmentFormat struct {
-    // account index
-    AccountIndex int `json:"account_index"`
-    // public key
-    Pk string `json:"pk"`
-    // private key
-    Sk string `json:"sk"`
-    // common input part
-    NftContentHash string `json:"nft_content_hash"`
-    AssetId        int    `json:"asset_id"`
-    AssetAmount    int64  `json:"asset_amount"`
-    // fee part
-    // encryption of balance of the gas fee asset
-    C_fee string `json:"c_fee"`
-    // balance of gas fee asset
-    B_fee int64 `json:"b_fee"`
-    // gas fee asset id
-    GasFeeAssetId int `json:"gas_fee_asset_id"`
-    // gas fee
-    GasFee int64 `json:"gas_fee"`
-}
+#### Example
+```bash
+# Call F12 in chrome   
+> globalThis.signMintNft("seed phrase", '{"from_account_index":0,"to_account_index":1,"to_account_name":"ddc6171f9fe33153d95c8394c9135c277eb645401b85eb499393a2aefe6422a6","nft_index":15,"gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","call_data":"","expired_at":1654656781000,"nonce":1}')
+# '{"CreatorAccountIndex":0,"ToAccountIndex":1,"ToAccountNameHash":"","NftIndex":0,"NftContentHash":"","NftCollectionId":0,"CreatorTreasuryRate":0,"GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"tHDjAyffLKgKbr83YfqhdSzhe8qmBi3jAJzBfZAqiwkAf6oicA1c7enenGtc9lW8ejjG5pqQv8MyiYOVaiFvMw=="}'
 ```
 
-### proveBuyNft
+### signWithdrawNft
+#### Description
+sign withdraw nft transaction
 
-```go
-type BuyNftSegmentFormat struct {
-    // account index
-    AccountIndex int `json:"account_index"`
-    // encryption of the balance
-    C string `json:"c"`
-    // public key
-    Pk string `json:"pk"`
-    // balance
-    B int64 `json:"b"`
-    // private key
-    Sk string `json:"sk"`
-    // owner index
-    OwnerAccountIndex int    `json:"owner_account_index"`
-    NftContentHash    string `json:"nft_content_hash"`
-    AssetId           int    `json:"asset_id"`
-    AssetAmount       int64  `json:"asset_amount"`
-    // fee part
-    // encryption of balance of the gas fee asset
-    C_fee string `json:"c_fee"`
-    // balance of gas fee asset
-    B_fee int64 `json:"b_fee"`
-    // gas fee asset id
-    GasFeeAssetId int `json:"gas_fee_asset_id"`
-    // gas fee
-    GasFee int64 `json:"gas_fee"`
-}
-```
+#### Params
+| Name | Type   | Comment                                                    |
+| ---- | ------ | ---------------------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+| segmentstr | string | formatted segment string |
 
-### proveWithdrawNft
-
+- segment format struct
 ```go
 type WithdrawNftSegmentFormat struct {
-    // account index
-    AccountIndex int `json:"account_index"`
-    // public key
-    Pk string `json:"pk"`
-    // private key
-    Sk string `json:"sk"`
-    // common input part
-    NftContentHash string `json:"nft_content_hash"`
-    ReceiverAddr   string `json:"receiver_addr"`
-    ChainId        int    `json:"chain_id"`
-    // fee part
-    // encryption of balance of the gas fee asset
-    C_fee string `json:"c_fee"`
-    // balance of gas fee asset
-    B_fee int64 `json:"b_fee"`
-    // gas fee asset id
-    GasFeeAssetId int `json:"gas_fee_asset_id"`
-    // gas fee
-    GasFee int64 `json:"gas_fee"`
+	AccountIndex      int64  `json:"account_index"`
+	NftIndex          int64  `json:"nft_index"`
+	ToAddress         string `json:"to_address"`
+	// L1 address based on ecdsa. 
+	// eg. 0x507Bd54B4232561BC0Ca106F7b029d064fD6bE4c
+	GasAccountIndex   int64  `json:"gas_account_index"`
+	GasFeeAssetId     int64  `json:"gas_fee_asset_id"`
+	GasFeeAssetAmount string `json:"gas_fee_asset_amount"`
+	ExpiredAt         int64  `json:"expired_at"`
+	Nonce             int64  `json:"nonce"`
 }
+```
+
+#### Example
+```bash
+# Call F12 in chrome   
+> globalThis.signWithdrawNft("seed phrase", '{"account_index":1,"nft_index":15,"to_address":"0x507Bd54B4232561BC0Ca106F7b029d064fD6bE4c","gas_account_index":1,"gas_fee_asset_id":3,"gas_fee_asset_amount":"3","expired_at":1654656781000,"nonce":1}')
+# '{"AccountIndex":1,"CreatorAccountIndex":0,"CreatorAccountNameHash":null,"CreatorTreasuryRate":0,"NftIndex":15,"NftContentHash":null,"NftL1Address":"","NftL1TokenId":null,"CollectionId":0,"ToAddress":"0x507Bd54B4232561BC0Ca106F7b029d064fD6bE4c","GasAccountIndex":1,"GasFeeAssetId":3,"GasFeeAssetAmount":3,"ExpiredAt":1654656781000,"Nonce":1,"Sig":"tN/62k2rtjMgo6/tnx2ILq3kXD/Jzv3bxWN/f7r4mxACT1mknNhMUTNQuP4ulYJEgab+xe4Vy283Dv6DzcTXjQ=="}'
 ```
 
 ### Error Types
-
-| Name                             | Value                            |
-| -------------------------------- | -------------------------------- |
-| Success                          | success                          |
-| ErrUnmarshal                     | ErrUnmarshal                     |
-| ErrInvalidWithdrawParams         | ErrInvalidWithdrawParams         |
-| ErrParseEnc                      | ErrParseEnc                      |
-| ErrParsePoint                    | ErrParsePoint                    |
-| ErrParseBigInt                   | ErrParseBigInt                   |
-| ErrInvalidWithdrawRelationParams | ErrInvalidWithdrawRelationParams |
-| ErrProveWithdraw                 | ErrProveWithdraw                 |
-| ErrMarshalTx                     | ErrMarshalTx                     |
-| ErrInvalidTransferParams         | ErrInvalidTransferParams         |
-| ErrInvalidTransferRelationParams | ErrInvalidTransferRelationParams |
-| ErrProveTransfer                 | ErrProveTransfer                 |
-| ErrL2SkParams                    | ErrL2SkParams                    |
-| ErrInvalidEncParams              | ErrInvalidEncParams              |
-| ErrElGamalEnc                    | ErrElGamalEnc                    |
-| ErrInvalidDecParams              | ErrInvalidDecParams              |
-| ErrElGamalDec                    | ErrElGamalDec                    |
-| ErrInvalidSwapParams             | ErrInvalidSwapParams             |
-| ErrInvalidSwapRelationParams     | ErrInvalidSwapRelationParams     |
