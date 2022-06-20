@@ -4,6 +4,24 @@
 
 ## SDK
 
+### getAccountNameHash
+
+#### Description
+
+get account name hash for ZNS
+
+#### Params
+
+| Name        | Type   | Comment                                       |
+| ----------- | ------ | --------------------------------------------- |
+| accountName | string | account name, such as sher.legend or sher.eth |
+
+#### Example
+
+```bash
+> globalThis.getAccountNameHash("sher.legend")
+```
+
 ### getEddsaPublicKey
 
 #### Description
