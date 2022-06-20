@@ -40,7 +40,7 @@ generate public key
 # '22fc6f5d74c8639245462a0af6b5c931bd209c04034b28421a60336635ab85950a3163e68ec29319ca200fac009408369b0a1f75200a118aded920cd240e1358'
 ```
 
-### getCompressedEddsaPublicKey
+### getEddsaCompressedPublicKey
 
 #### Description
 
@@ -57,7 +57,7 @@ generate public key
 
 ```bash
 # Call F12 in chrome
-> globalThis.getCompressedEddsaPublicKey("seed phrase")
+> globalThis.getEddsaCompressedPublicKey("seed phrase")
 # '58130e24cd20d9de8a110a20751f0a9b36089400ac0f20ca1993c28ee663318a'
 ```
 
