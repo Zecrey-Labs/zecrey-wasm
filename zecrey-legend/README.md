@@ -37,10 +37,32 @@ generate public key
 ```bash
 # Call F12 in chrome
 > globalThis.getEddsaPublicKey("seed phrase")
-# '06cdb3200f1e0e7dd7ea789b41d88662a1b4c213075633088773025289bdbd05'
+# '22fc6f5d74c8639245462a0af6b5c931bd209c04034b28421a60336635ab85950a3163e68ec29319ca200fac009408369b0a1f75200a118aded920cd240e1358'
+```
+
+### getCompressedEddsaPublicKey
+
+#### Description
+
+generate public key
+
+#### Params
+
+| Name | Type   | Comment                                       |
+| ---- | ------ | --------------------------------------------- |
+| seed | string | seed phrase, 256bits, type is BigInt, base 16 |
+
+
+#### Example
+
+```bash
+# Call F12 in chrome
+> globalThis.getCompressedEddsaPublicKey("seed phrase")
+# '58130e24cd20d9de8a110a20751f0a9b36089400ac0f20ca1993c28ee663318a'
 ```
 
 ### generateEddsaKey
+
 #### Description
 generate private key
 
