@@ -4,6 +4,42 @@
 
 ## SDK
 
+### cleanPackedAmount
+
+#### Description
+
+convert amount to valid amount
+
+#### Params
+
+| Name   | Type   | Comment |
+| ------ | ------ | ------- |
+| amount | string | amount  |
+
+#### Example
+
+```bash
+> globalThis.cleanPackedAmount("10000001111")
+```
+
+### cleanPackedFee
+
+#### Description
+
+convert fee to valid fee
+
+#### Params
+
+| Name   | Type   | Comment |
+| ------ | ------ | ------- |
+| amount | string | amount  |
+
+#### Example
+
+```bash
+> globalThis.cleanPackedFee("10000001111")
+```
+
 ### getAccountNameHash
 
 #### Description
